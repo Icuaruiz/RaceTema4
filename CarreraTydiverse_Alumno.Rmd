@@ -229,7 +229,7 @@ cran2 %>%
 ```{r}
 
 cran2 %>% 
-  arrange(country, desc(r_version))
+  arrange(country, desc(r_version), ip_id)
 
 ```
 14. Selecciona el subconjunto formado por las variables, del `cran`, `ip_id, package y size` 
@@ -244,12 +244,13 @@ cran3 <- cran %>%
 15. Crea una nueva variable en `cran3` llamada `size_mb` que contenga el tamaño de la descarga expresado en Mbytes ($1Mbyte=2^{20}$ bytes).
 ```{r}
 
-cran3 %>%
+cran3 <- cran3 %>%
   mutate(size_mb = size/2^20)
 
 ```
 16. Sabiendo que 1Gb son $2^{10}$ Mbytes, crea una nueva variable en `cran3` llamada `size_gb` que contenga el tamaño de la descarga expresado en Gbytes.
 ```{r}
+
 
 
 ```
