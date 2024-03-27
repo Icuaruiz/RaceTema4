@@ -384,7 +384,15 @@ cran %>%
 
 ```{r}
 
+library(ggplot2)
 
+cran %>% 
+  group_by(country) %>%
+  summarise(num_descargas = n()) %>%
+  filter(num_descargas > quantile(.$num_descargas, probs = 0.9)) %>%
+  arrange(desc(num_descargas)) %>%
+  ggplot(aes(x = country, y = num_descargas)) + 
+    geom_point()
 
 ```
 **EXTRA** Tal como se indica en el ejercicio, el significado de los códigos usados para la codificación de los paise se pueden obtener de https://dev.maxmind.com/geoip/geoip2/geolite2/. Descarga el fichero **GeoLite2 Country** en formato CSV. Este fichero contiene información en varios idiomas. Usa `GeoLite2-Country-Locations-es.csv` que tiene la información en español. Deseamos poder determinar las descargas por continentes por lo que necesitamos añadir esta información a los datos de las descargas almacenados en `cran`. Procede de la siguiente forma:
@@ -433,8 +441,8 @@ str(students)
 # male  : int  1 5 5 5 7
 # female: int  5 0 2 5 4
 
-students %>%
-  pivo
+students %>% 
+  pivot_longer(names_to = "sex", values_to = "count", cols = c("male","female"))
 
 ```
 30. Considera el conjunto ´students2´, que es similar al primero pero que se han recogido datos correspondientes a dos grupos, (`male_1, female_1`, etc). Transfórmalo en un conjunto `tidy` añadiendo una columna adicional correspondiente al grupo (llama a la nueva variable `class`)
