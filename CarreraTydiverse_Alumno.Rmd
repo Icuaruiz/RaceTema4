@@ -375,14 +375,14 @@ cran %>%
 
 cran %>%
   mutate(size_mb = size/2^20) %>%
-  filter(size_mb >= 0.5)
+  filter(size_mb >= 0.5) %>%
+  arrange(desc(size_mb))
 
 ```
 **EXTRA**. Se desea mostar gráficamente aquellos países que suponen el mayor tráfico de información, ocasionado por el total de descargas acumuladas. Para facilitar la visualización céntrate en aquellos que están por encima del 90 % del top de descargas. El gráfico debe mostrar los valores de forma ordenada de mayor a menor. En el eje X debe aparecer el código de país y en el eje Y el tráfico generado. Intenta hacerlo usando una tubería sin emplear ninguna variable auxiliar.
 `cran%>%...+geom_point()`
 
 ```{r}
-
 
 
 
@@ -400,20 +400,19 @@ cran %>%
 
 
 
-
-
-
-
-
-
-
-
-
-
 ```
 
 # tidyr.
 Carga el fichero de datos `datostidyr.Rdata` que contiene varios conjuntos de datos que vamos a usar en los siguientes ejercicios.
+
+```{r}
+
+library(tidyr)
+
+# Cargamos el fichero binario
+load(file ='./data/datostidyr.Rdata')
+```
+
 
 29. Observa el data frame `students` :
   grade male female
@@ -427,7 +426,15 @@ La columna `grade` es la calificación y las dos siguientes el número de estudi
 ¿ Cuáles son las variables ?. Transfórmalo en un conjunto `tidy` con las variables, `grade, sex y count`
 ```{r}
 
+str(students)
 
+# Variables: 
+# grade : Factor w/ 5 levels "A","B","C","D",..: 1 2 3 4 5
+# male  : int  1 5 5 5 7
+# female: int  5 0 2 5 4
+
+students %>%
+  pivo
 
 ```
 30. Considera el conjunto ´students2´, que es similar al primero pero que se han recogido datos correspondientes a dos grupos, (`male_1, female_1`, etc). Transfórmalo en un conjunto `tidy` añadiendo una columna adicional correspondiente al grupo (llama a la nueva variable `class`)
