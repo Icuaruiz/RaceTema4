@@ -332,12 +332,15 @@ top_counts_sorted <- top_counts
 
 ```{r}
 
+top_unique <- cran %>% 
+  group_by(package) %>%
+  summarise(ordenadores = unique(ip_id)) %>%
+  filter(ordenadores > quantile(.$ordenadores, probs = 0.99)) %>%
+  arrange(desc(ordenadores)) %>%
+  select("package")
 
-
-
-
-
-
+# Almacenos solo los paquetes porque es lo que dice el enunciado
+top_unique
 
 ```
 25. Completa lo que se indica  usando `pipes`. Selecciona las columnas `ip_id, country, package, size` de `cran` y muestra el resultado por pantalla usando `print`. No es necesario almacenar.
